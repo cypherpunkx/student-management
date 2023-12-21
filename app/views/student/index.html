@@ -1,0 +1,13 @@
+<div class="my-4">
+  <div>
+    <% if (messages.success && messages.success.length > 0) { %>
+    <div class="success">
+      <% messages.success.forEach(message => { %>
+      <p><%= message %></p>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+
+  <%- include('../partials/table.html',{ data }) %>
+</div>
