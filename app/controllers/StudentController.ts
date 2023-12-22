@@ -8,16 +8,6 @@ import { ValidationError } from "sequelize";
 class StudentController {
   static async Index(req: Request, res: Response) {
     try {
-      await Student.bulkCreate([
-        {
-          nim: faker.string.alphanumeric({ length: 9 }),
-          nama: faker.person.fullName(),
-          tglLahir: faker.date.birthdate({ mode: "year" }).toString(),
-          alamat: faker.location.streetAddress(),
-          jenisKelamin: "Laki-laki",
-        },
-      ]);
-
       const students = await Student.findAll();
 
       console.log(req.flash());
@@ -85,6 +75,30 @@ class StudentController {
       res.render("student/details", {
         data: student,
         layout: "layouts/main-layout",
+      });
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        req.flash("error", error.message);
+      }
+
+      console.log(error);
+    }
+  }
+
+  static async Delete(req: Request, res: Response) {
+    try {
+      const nim = req.params.id;
+
+      await Student.destroy({
+        where: {
+          nim,
+        },
+      });
+
+      req.flash("success", "Hapus Berhasil");
+
+      res.status(200).json({
+        redirect: "/student",
       });
     } catch (error) {
       if (error instanceof ValidationError) {
