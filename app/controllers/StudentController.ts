@@ -63,19 +63,70 @@ class StudentController {
   }
 
   static async DetailsPage(req: Request, res: Response) {
-    const nim = req.params.id;
-
-    const student = await Student.findOne({
-      where: {
-        nim,
-      },
-    });
-
     try {
+      const nim = req.params.id;
+
+      const student = await Student.findOne({
+        where: {
+          nim,
+        },
+      });
+
       res.render("student/details", {
         data: student,
         layout: "layouts/main-layout",
       });
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        req.flash("error", error.message);
+      }
+
+      console.log(error);
+    }
+  }
+
+  static async UpdatePage(req: Request, res: Response) {
+    try {
+      const nim = req.params.id;
+
+      const student = await Student.findOne({
+        where: {
+          nim,
+        },
+      });
+
+      res.render("student/update", {
+        data: student,
+        layout: "layouts/main-layout",
+      });
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        req.flash("error", error.message);
+      }
+
+      console.log(error);
+    }
+  }
+  static async Update(req: Request, res: Response) {
+    try {
+      const nim = req.params.id;
+      const {
+        nama,
+        tgl_lahir: tglLahir,
+        alamat,
+        gridRadios: jenisKelamin,
+      } = req.body;
+
+      await Student.update(
+        { nama, tglLahir, alamat, jenisKelamin },
+        {
+          where: {
+            nim,
+          },
+        }
+      );
+
+      res.redirect("/student");
     } catch (error) {
       if (error instanceof ValidationError) {
         req.flash("error", error.message);

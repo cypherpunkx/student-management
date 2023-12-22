@@ -1,4 +1,7 @@
-<form action="/student/create" method="post">
+<form
+  action="<%= !data ? '/student/create' : `/student/details/${data.nim}` %>"
+  method="post"
+>
   <div class="form-group row mb-3">
     <label for="nim" class="col-sm-2 col-form-label">Nim</label>
     <div class="col-sm-4">
@@ -8,6 +11,7 @@
         id="nim"
         name="nim"
         placeholder="Masukkan nim..."
+        value="<%= !data ? '' : data.nim %>"
       />
     </div>
   </div>
@@ -20,6 +24,7 @@
         id="nama"
         name="nama"
         placeholder="Masukkan nama..."
+        value="<%= !data ? '' : data.nama %>"
       />
     </div>
   </div>
@@ -32,6 +37,7 @@
         id="tgl_lahir"
         name="tgl_lahir"
         placeholder="Masukkan tanggal lahir..."
+        value="<%= !data ? '' : data.tglLahir %>"
       />
     </div>
   </div>
@@ -44,6 +50,7 @@
         id="alamat"
         name="alamat"
         placeholder="Masukkan alamat..."
+        value="<%= !data ? '' : data.alamat %>"
       />
     </div>
   </div>
@@ -58,7 +65,7 @@
             type="radio"
             name="gridRadios"
             id="laki-laki"
-            value="Laki-laki"
+            value="<%= !data ? 'Laki-laki' : data.jenisKelamin %>"
             checked
           />
           <label class="form-check-label" for="laki-laki"> Laki laki </label>
@@ -69,7 +76,7 @@
             type="radio"
             name="gridRadios"
             id="perempuan"
-            value="perempuan"
+            value="<%= !data ? 'Perempuan' : data.jenisKelamin %>"
           />
           <label class="form-check-label" for="perempuan"> Perempuan </label>
         </div>
@@ -79,7 +86,19 @@
 
   <div class="form-group row">
     <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary">Tambah</button>
+      <button type="submit" class="btn btn-<%= !data ? "primary" : "warning" %>">
+        <%= !data ? "Tambah" : "Update" %>
+      </button>
     </div>
   </div>
 </form>
+
+<script>
+  const btnCheck = document.querySelectorAll("input[type=radio]");
+  const inputNim = document.getElementById("nim");
+
+  if (inputNim.value !== "") {
+    inputNim.disabled = true;
+  }
+
+</script>
