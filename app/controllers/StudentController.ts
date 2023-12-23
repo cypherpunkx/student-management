@@ -148,9 +148,7 @@ class StudentController {
 
       req.flash("success", "Hapus Berhasil");
 
-      res.status(200).json({
-        redirect: "/student",
-      });
+      res.redirect("/student");
     } catch (error) {
       if (error instanceof ValidationError) {
         req.flash("error", error.message);

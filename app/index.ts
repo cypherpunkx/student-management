@@ -9,6 +9,7 @@ import flash from "connect-flash";
 import HomeRoute from "./routes/home";
 import StudentRoute from "./routes/student";
 import moment from "moment";
+import methodOverride from "method-override";
 
 moment.locale("id");
 
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(expressLayouts);
+app.use(methodOverride("_method"));
 app.use(
   session({
     secret: "keyboard cat",

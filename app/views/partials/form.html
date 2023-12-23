@@ -1,5 +1,5 @@
 <form
-  action="<%= !data ? '/student/create' : `/student/details/${data.nim}` %>"
+  action=<%= !data ? '/student/create' : `/student/details/${data.nim}?_method=PUT` %>
   method="post"
 >
   <div class="form-group row mb-3">
@@ -66,7 +66,7 @@
             name="gridRadios"
             id="laki-laki"
             value="<%= !data ? 'Laki-laki' : data.jenisKelamin %>"
-            checked
+            <%= data.jenisKelamin === "Laki-laki" && 'checked' %>
           />
           <label class="form-check-label" for="laki-laki"> Laki laki </label>
         </div>
@@ -77,6 +77,7 @@
             name="gridRadios"
             id="perempuan"
             value="<%= !data ? 'Perempuan' : data.jenisKelamin %>"
+            <%= data.jenisKelamin === "Perempuan" && 'checked' %>
           />
           <label class="form-check-label" for="perempuan"> Perempuan </label>
         </div>

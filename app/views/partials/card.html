@@ -9,23 +9,22 @@
     <p class="card-text"><%= data.alamat %></p>
     <div class="d-flex align-items-center">
       <a href="/student" class="btn btn-primary btn-sm">Kembali</a>
-      <a id="delete" class="btn btn-danger btn-sm ms-auto" data-nim="<%= data.nim %>">Delete</>
-      <a href="/student/update/<%= data.nim %>" class="btn btn-warning btn-sm ms-2">Update</a>
-    </div>
+
+      <form
+        action="/student/details/<%= data.nim %>?_method=DELETE"
+        method="post"
+        class="ms-auto"
+      >
+        <button class="btn btn-danger btn-sm ms-auto" type="submit">
+          Delete
+        </button>
+      </form>
+      <a
+        href="/student/update/<%= data.nim %>"
+        class="btn btn-warning btn-sm ms-2"
+      >
+        Update
+      </a>
     </div>
   </div>
 </div>
-
-
-<script>
-  const btnDelete = document.getElementById("delete")
-  
-
-  btnDelete.addEventListener('click',function() {
-    const nim = this.dataset.nim
-
-    fetch(`/student/details/${nim}`,{
-      method:"DELETE"
-    }).then((response) => response.json()).then((data) => window.location.href = data.redirect ).catch(err => console.log(err))
-  })
-</script>
