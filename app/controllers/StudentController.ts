@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { fakerID_ID as faker } from "@faker-js/faker";
 import Student from "../models/Student";
-
 import "../models/associations";
 import { ValidationError } from "sequelize";
 
@@ -10,10 +9,7 @@ class StudentController {
     try {
       const students = await Student.findAll();
 
-      console.log(req.flash());
-
       res.render("student/index", {
-        messages: req.flash(),
         data: students,
         layout: "layouts/main-layout",
       });
@@ -49,15 +45,10 @@ class StudentController {
         jenisKelamin,
       });
 
-      req.flash("success", "Data berhasil ditambahkan");
+      req.flash("message", ["success", "Data berhasil ditambahkan!"]);
 
       res.redirect("/student");
     } catch (error) {
-      if (error instanceof ValidationError) {
-        req.flash("error", error.message);
-      }
-      res.redirect("/student");
-
       console.log(error);
     }
   }
@@ -77,10 +68,6 @@ class StudentController {
         layout: "layouts/main-layout",
       });
     } catch (error) {
-      if (error instanceof ValidationError) {
-        req.flash("error", error.message);
-      }
-
       console.log(error);
     }
   }
@@ -100,10 +87,6 @@ class StudentController {
         layout: "layouts/main-layout",
       });
     } catch (error) {
-      if (error instanceof ValidationError) {
-        req.flash("error", error.message);
-      }
-
       console.log(error);
     }
   }
@@ -126,12 +109,10 @@ class StudentController {
         }
       );
 
+      req.flash("message", ["success", "Data berhasil diperbaharui!"]);
+
       res.redirect("/student");
     } catch (error) {
-      if (error instanceof ValidationError) {
-        req.flash("error", error.message);
-      }
-
       console.log(error);
     }
   }
@@ -146,14 +127,10 @@ class StudentController {
         },
       });
 
-      req.flash("success", "Hapus Berhasil");
+      req.flash("message", ["danger", "Data berhasil dihapus!"]);
 
       res.redirect("/student");
     } catch (error) {
-      if (error instanceof ValidationError) {
-        req.flash("error", error.message);
-      }
-
       console.log(error);
     }
   }

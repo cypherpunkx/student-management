@@ -8,6 +8,7 @@ import session from "express-session";
 import flash from "connect-flash";
 import HomeRoute from "./routes/home";
 import StudentRoute from "./routes/student";
+import LecturerRoute from "./routes/lecturer";
 import moment from "moment";
 import methodOverride from "method-override";
 
@@ -33,11 +34,20 @@ app.use(
 app.use(flash());
 
 app.use((req, res, next) => {
-  res.locals.messages = req.flash(); // Simpan pesan ke dalam locals
+  res.locals.messages = req.flash("message"); // Simpan pesan ke dalam locals
+  res.locals.moment = moment;
+  res.locals.currentPath = req.originalUrl;
   next();
 });
 
 app.use("/", HomeRoute);
 app.use("/student", StudentRoute);
+app.use("/lecturer", LecturerRoute);
+
+app.use((req, res, next) => {
+  res.status(404).render("errors/index", {
+    layout: "layouts/error-layout",
+  });
+});
 
 export default app;

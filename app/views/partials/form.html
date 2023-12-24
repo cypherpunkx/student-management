@@ -12,6 +12,7 @@
         name="nim"
         placeholder="Masukkan nim..."
         value="<%= !data ? '' : data.nim %>"
+        <%= data && 'disabled' %>
       />
     </div>
   </div>
@@ -37,7 +38,7 @@
         id="tgl_lahir"
         name="tgl_lahir"
         placeholder="Masukkan tanggal lahir..."
-        value="<%= !data ? '' : data.tglLahir %>"
+        data-date="<%= !data ? '' : data.tglLahir.toLocaleDateString() %>"
       />
     </div>
   </div>
@@ -65,8 +66,8 @@
             type="radio"
             name="gridRadios"
             id="laki-laki"
-            value="<%= !data ? 'Laki-laki' : data.jenisKelamin %>"
-            <%= data.jenisKelamin === "Laki-laki" && 'checked' %>
+            value="Laki-laki"
+            <%= data && data.jenisKelamin === "Laki-laki" && 'checked' %>
           />
           <label class="form-check-label" for="laki-laki"> Laki laki </label>
         </div>
@@ -76,8 +77,8 @@
             type="radio"
             name="gridRadios"
             id="perempuan"
-            value="<%= !data ? 'Perempuan' : data.jenisKelamin %>"
-            <%= data.jenisKelamin === "Perempuan" && 'checked' %>
+            value="Perempuan"
+            <%= data && data.jenisKelamin === "Perempuan" && 'checked' %>
           />
           <label class="form-check-label" for="perempuan"> Perempuan </label>
         </div>
@@ -95,11 +96,22 @@
 </form>
 
 <script>
-  const btnCheck = document.querySelectorAll("input[type=radio]");
-  const inputNim = document.getElementById("nim");
+  const inputDate = document.querySelector("input[type=date]")
 
-  if (inputNim.value !== "") {
-    inputNim.disabled = true;
-  }
+function formatDate(input) {
+    // Parsing tanggal dari format m/d/yyyy
+    const parts = input.split('/');
+    const month = String(parts[0]).padStart(2, '0'); // Menggunakan padStart untuk menambahkan 0 di depan jika hanya satu digit
+    const day = String(parts[1]).padStart(2, '0');
+    const year = parts[2];
+
+    // Menggabungkan kembali ke format yyyy-MM-dd
+    return `${year}-${month}-${day}`;
+}
+
+
+inputDate.value = formatDate(inputDate.dataset.date);
 
 </script>
+
+
