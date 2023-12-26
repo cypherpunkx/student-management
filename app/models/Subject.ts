@@ -31,9 +31,13 @@ Subject.init(
       type: new DataTypes.INTEGER(),
       allowNull: false,
       validate: {
+        min: {
+          args: [1],
+          msg: "Minimal 1 SKS",
+        },
         max: {
-          args: [2],
-          msg: "Hanya 2 karakter",
+          args: [20],
+          msg: "Maksimal 20 SKS",
         },
       },
     },

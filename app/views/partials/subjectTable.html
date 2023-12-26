@@ -1,6 +1,6 @@
 <div class="table-responsive-sm table">
-  <div class="d-flex justify-content-between align-items-center">
-    <a type="button" class="btn btn-primary" href="/student/create">Create</a>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <a type="button" class="btn btn-primary" href="/subject/create">Create</a>
     <form>
       <div class="d-flex justify-content-start align-items-center">
         <div class="form-group">
@@ -20,19 +20,22 @@
     <thead class="thead thead-dark">
       <tr>
         <th scope="col">No</th>
-        <th scope="col">Nim</th>
-        <th scope="col">Nama</th>
+        <th scope="col">Kode MK</th>
+        <th scope="col">Nama MK</th>
+        <th scope="col" class="text-center">
+          <i class="bi bi-three-dots h4"></i>
+        </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider align-middle">
       <% data.forEach((student,index) => { %> <% const no = index +1 %>
       <tr class="py-2">
         <th scope="row"><%= no %></th>
-        <td><%= student.nim %></td>
-        <td><%= student.nama %></td>
-        <td>
+        <td><%= student.kodeMk %></td>
+        <td><%= student.namaMk %></td>
+        <td class="text-center">
           <a
-            href="/student/details/<%= student.nim %>"
+            href="/subject/details/<%= student.nip %>"
             class="btn btn-success btn-sm"
             >Details</a
           >

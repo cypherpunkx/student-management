@@ -1,0 +1,61 @@
+<form
+  action=<%= !data ? '/lecturer/create' : `/lecturer/details/${data.nim}?_method=PUT` %>
+  method="post"
+>
+  <div class="form-group row mb-3">
+    <label for="nim" class="col-sm-2 col-form-label">Nip</label>
+    <div class="col-sm-4">
+      <input
+        type="text"
+        class="form-control"
+        id="nip"
+        name="nip"
+        placeholder="Masukkan nip..."
+        value="<%= !data ? '' : data.nip %>"
+        <%= data && 'disabled' %>
+      />
+    </div>
+  </div>
+  <div class="form-group row mb-3">
+    <label for="nama" class="col-sm-2 col-form-label">Nama Dosen</label>
+    <div class="col-sm-4">
+      <input
+        type="text"
+        class="form-control"
+        id="namaDosen"
+        name="namaDosen"
+        placeholder="Masukkan nama..."
+        value="<%= !data ? '' : data.namaDosen %>"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-<%= !data ? "primary" : "warning" %>">
+        <%= !data ? "Tambah" : "Update" %>
+      </button>
+    </div>
+  </div>
+</form>
+
+<script>
+  const inputDate = document.querySelector("input[type=date]")
+
+function formatDate(input) {
+    // Parsing tanggal dari format m/d/yyyy
+    const parts = input.split('/');
+    const month = String(parts[0]).padStart(2, '0'); // Menggunakan padStart untuk menambahkan 0 di depan jika hanya satu digit
+    const day = String(parts[1]).padStart(2, '0');
+    const year = parts[2];
+
+    // Menggabungkan kembali ke format yyyy-MM-dd
+    return `${year}-${month}-${day}`;
+}
+
+
+inputDate.value = formatDate(inputDate.dataset.date);
+
+</script>
+
+

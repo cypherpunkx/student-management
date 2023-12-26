@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { fakerID_ID as faker } from "@faker-js/faker";
 import Student from "../models/Student";
-import "../models/associations";
 import { ValidationError } from "sequelize";
 
 class StudentController {
@@ -17,6 +16,7 @@ class StudentController {
       console.log(error);
     }
   }
+
   static async CreatePage(req: Request, res: Response) {
     try {
       res.render("student/create", {

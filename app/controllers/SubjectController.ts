@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import Lecturer from "../models/Lecturer";
+import Subject from "../models/Subject";
 
-class LecturerController {
+class SubjectController {
   static async Index(req: Request, res: Response) {
-    const lecturer = await Lecturer.findAll();
+    const subject = await Subject.findAll();
 
-    res.render("lecturer/index", {
-      data: lecturer,
+    res.render("subject/index", {
+      data: subject,
       layout: "layouts/main-layout",
     });
   }
 
   static async CreatePage(req: Request, res: Response) {
     try {
-      res.render("lecturer/create", {
+      res.render("subject/create", {
         layout: "layouts/main-layout",
       });
     } catch (error) {
@@ -23,20 +23,21 @@ class LecturerController {
 
   static async Create(req: Request, res: Response) {
     try {
-      const { nip, namaDosen } = req.body;
+      const { kodeMk, namaMk, sks } = req.body;
 
-      await Lecturer.create({
-        nip,
-        namaDosen,
+      await Subject.create({
+        kodeMk,
+        namaMk,
+        sks,
       });
 
       req.flash("message", ["success", "Data berhasil ditambahkan!"]);
 
-      res.redirect("/lecturer");
+      res.redirect("/subject");
     } catch (error) {
       console.log(error);
     }
   }
 }
 
-export default LecturerController;
+export default SubjectController;

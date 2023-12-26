@@ -1,0 +1,83 @@
+<form action="/lectures/create" method="post">
+  <div class="form-group row mb-3">
+    <label for="nim" class="col-sm-2 col-form-label">Nim</label>
+    <select
+      id="nim"
+      name="nim"
+      class="form-select col-sm-4 col-2 w-25"
+      aria-label="Default select example"
+    >
+      <option selected>Select Nim</option>
+      <% data.students.forEach(student => { %>
+      <option value="<%= student.nim %>"><%= student.nim %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="form-group row mb-3">
+    <label for="nim" class="col-sm-2 col-form-label">Nip</label>
+    <select
+      id="nip"
+      name="nip"
+      class="form-select col-sm-4 w-25"
+      aria-label="Default select example"
+    >
+      <option selected>Select Nip</option>
+      <% data.lecturer.forEach(lecturer => { %>
+      <option value="<%= lecturer.nip %>"><%= lecturer.nip %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="form-group row mb-3">
+    <label for="nim" class="col-sm-2 col-form-label">Kode MK</label>
+    <select
+      id="kodeMk"
+      name="kodeMk"
+      class="form-select col-sm-4 w-25"
+      aria-label="Default select example"
+    >
+      <option selected>Select Kode</option>
+      <% data.subject.forEach(subject => { %>
+      <option value="<%= subject.kodeMk %>"><%= subject.kodeMk %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="form-group row mb-3">
+    <label for="nilai" class="col-sm-2 col-form-label">Nilai</label>
+    <select
+      id="nilai"
+      name="nilai"
+      class="form-select col-sm-4 w-25"
+      aria-label="Default select example"
+    >
+      <option selected>Select Nilai</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+      <option value="E">E</option>
+    </select>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Tambah</button>
+    </div>
+  </div>
+</form>
+
+<script>
+  const inputDate = document.querySelector("input[type=date]");
+
+  function formatDate(input) {
+    // Parsing tanggal dari format m/d/yyyy
+    const parts = input.split("/");
+    const month = String(parts[0]).padStart(2, "0"); // Menggunakan padStart untuk menambahkan 0 di depan jika hanya satu digit
+    const day = String(parts[1]).padStart(2, "0");
+    const year = parts[2];
+
+    // Menggabungkan kembali ke format yyyy-MM-dd
+    return `${year}-${month}-${day}`;
+  }
+
+  inputDate.value = formatDate(inputDate.dataset.date);
+</script>

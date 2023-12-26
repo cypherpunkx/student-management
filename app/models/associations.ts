@@ -3,9 +3,7 @@ import Lectures from "./Lectures";
 import Student from "./Student";
 import Subject from "./Subject";
 
-Student.hasOne(Lectures, {
-  constraints: true,
-});
+Student.hasOne(Lectures);
 Lectures.belongsTo(Student);
 Lecturer.hasOne(Lectures);
 Lectures.belongsTo(Lecturer);

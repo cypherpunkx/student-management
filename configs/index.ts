@@ -7,7 +7,6 @@ const sequelize = new Sequelize("db_student", "postgres", "admin", {
 });
 
 // (async () => {
-//   await sequelize.drop();
 //   await sequelize.sync({
 //     force: true,
 //     alter: true,

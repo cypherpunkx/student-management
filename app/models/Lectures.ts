@@ -24,19 +24,31 @@ class Lectures extends Model<
   declare nip: ForeignKey<Lecturer["nip"]>;
   declare kodeMk: ForeignKey<Subject["kodeMk"]>;
   declare nilai: CharDataType;
-  declare mahasiswa?: NonAttribute<Student>; // Note this is optional since it's only populated when explicitly requested in code
-  declare dosen?: NonAttribute<Lecturer>; // Note this is optional since it's only populated when explicitly requested in code
-  declare matakuliah?: NonAttribute<Subject>; // Note this is optional since it's only populated when explicitly requested in code
+  declare Student?: NonAttribute<Student>;
+  declare Lecturer?: NonAttribute<Lecturer>;
+  declare Subject?: NonAttribute<Subject>; // Note this is optional since it's only populated when explicitly requested in code
 
   declare static associations: {
-    student: Association<Lectures, Student>;
-    lecturer: Association<Lectures, Lecturer>;
-    subject: Association<Lectures, Subject>;
+    Student: Association<Lectures, Student>;
+    Lecturer: Association<Lectures, Lecturer>;
+    Subject: Association<Lectures, Subject>;
   };
 }
 
 Lectures.init(
   {
+    nim: {
+      type: DataTypes.STRING,
+      field: "student_nim",
+    },
+    nip: {
+      type: DataTypes.STRING,
+      field: "lecturer_nip",
+    },
+    kodeMk: {
+      type: DataTypes.STRING,
+      field: "subject_kode_mk",
+    },
     nilai: {
       type: new DataTypes.CHAR(1),
       allowNull: false,
@@ -48,5 +60,12 @@ Lectures.init(
     sequelize, // passing the `sequelize` instance is required
   }
 );
+
+Student.hasOne(Lectures);
+Lectures.belongsTo(Student);
+Lecturer.hasOne(Lectures);
+Lectures.belongsTo(Lecturer);
+Subject.hasOne(Lectures);
+Lectures.belongsTo(Subject);
 
 export default Lectures;
